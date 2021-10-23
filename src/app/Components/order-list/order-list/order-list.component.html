@@ -1,0 +1,31 @@
+<table style="width: 100%">
+  <thead>
+    <tr>
+      <th>Customer Name</th>
+      <th>Number Of Persons</th>
+      <th>isTransit</th>
+      <th>Order Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="
+        let order of orders
+          | paginate
+            : {
+                itemsPerPage: 10,
+                currentPage: this.page,
+                totalItems: totalPages
+              }
+      "
+    >
+      <th>{{ order.customerName }}</th>
+      <th>{{ order.numberOfPersons }}</th>
+      <th>{{ order.isTransit }}</th>
+      <th>{{ order.orderStatus }}</th>
+    </tr>
+  </tbody>
+  <div class="card-footer pb-0 pt-3"></div>
+
+  <pagination-controls (pageChange)="pagechanged($event)"></pagination-controls>
+</table>

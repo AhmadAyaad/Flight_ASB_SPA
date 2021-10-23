@@ -1,0 +1,94 @@
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="basicDataFormGroup">
+    <form [formGroup]="basicDataFormGroup">
+      <ng-template matStepLabel>Fill out your name</ng-template>
+      <div>
+        <mat-form-field>
+          <mat-label>Customer Name</mat-label>
+          <input
+            matInput
+            formControlName="csutomerNameControl"
+            placeholder="Last name, First name"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-label>Number of persons</mat-label>
+          <input
+            matInput
+            formControlName="numberOfPerosns"
+            placeholder="Last name, First name"
+            required
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Please select country</mat-label>
+          <mat-select formControlName="selectedCountry">
+            <mat-option
+              *ngFor="let country of countries"
+              [value]="country.countryId"
+            >
+              {{ country.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            formControlName="departureDate"
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Choose a date"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <!--     -->
+
+  <mat-step [stepControl]="creditCardFormGroup" label="Fill out your address">
+    <form [formGroup]="creditCardFormGroup">
+      <div>
+        <mat-form-field>
+          <mat-label>Credit Card Holder Name</mat-label>
+          <input matInput formControlName="creditCardHolderName" required />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field>
+          <mat-label>Credit Card Number</mat-label>
+          <input matInput formControlName="creditCardNumber" required />
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperNext>Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <!--     -->
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+    <p>You are now done.</p>
+    <div>
+      <button mat-button matStepperPrevious *ngIf="!isLinear">Back</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+      <button mat-button type="submit" (click)="createOrder()">Submit</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
